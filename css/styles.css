@@ -1,0 +1,24 @@
+#table{
+    background-image: url(../images/table2.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 1000px;
+    
+}
+
+.cardImage{
+    height: 150px;
+    width: 75px;
+}
+body{
+    color: white
+}
+
+#player-hand,#dealer-hand{
+    height: 150px;
+    width: 100%;
+}
+.gameArea{
+    margin-top: 100px;
+    left:350px;
+}
