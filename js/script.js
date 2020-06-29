@@ -7,6 +7,7 @@ var playerPoints = document.querySelector("#player-points");
 var dealButton = document.querySelector("#deal-button");
 var hitButton = document.querySelector("#hit-button");
 var standButton = document.querySelector("#stand-button");
+var cardAnimateImg = document.querySelector(".cardImage2");
 var deck = [];
 var playerTotal = 0;
 var dealerTotal = 0;
@@ -14,6 +15,10 @@ var dealerHoleCard;
 var holeCardFlipped = true;
 var playerCurrentCards = [];
 var dealerCurrentCards = []
+
+document.querySelector("body").addEventListener('click', (e) => {
+    console.log(e);
+});
 
 var holeCardImg = document.createElement("img");
 holeCardImg.setAttribute("src","images/Red_back.jpg");
@@ -119,8 +124,12 @@ deal = () => {
     playerCurrentCards.push(card1,card2);
     dealerCurrentCards.push(card3,card4);
     dealerHoleCard = card3;
-    playerHand.appendChild(card1.imgHTML);
-    playerHand.appendChild(card2.imgHTML);
+    cardAnimateImg.classList.add("playerCardAnimate");
+    cardAnimateImg.addEventListener("animationend", (e) =>{
+        playerHand.appendChild(card1.imgHTML);
+        playerHand.appendChild(card2.imgHTML);
+    });
+   
     dealerHand.appendChild(holeCardImg);
     dealerHand.appendChild(card4.imgHTML);
     dealerTotal += Number(card4.value)
@@ -152,6 +161,7 @@ hit = () => {
     playerPoints.innerHTML = getTotal(playerCurrentCards);
     if(getTotal(playerCurrentCards) > 21){
         setTimeout(function() {
+            document.querySelector("#messages").innerHTML = "You busted dealer wins!";
             alert("You busted! Dealer WINS!")
         },10);
         

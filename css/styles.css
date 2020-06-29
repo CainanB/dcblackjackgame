@@ -22,3 +22,22 @@ body{
     margin-top: 100px;
     left:350px;
 }
+.tableDeck{
+    top:150px;
+    left:-250px;
+}
+
+#message{
+    height: 50px;
+}
+
+.playerCardAnimate{
+    animation-name: playerCard;
+    animation-duration: 0.5s;
+    animation-iteration-count: 2;
+
+}
+@keyframes playerCard{
+    0% {top: 150px; left:-175px;}
+    100% {top: 310px; left: 0px}
+}
