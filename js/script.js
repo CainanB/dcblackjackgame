@@ -26,8 +26,10 @@ holeCardImg.setAttribute("class","cardImage");
 
 
 function createCards(){
+    let ID = 1;
     for(let card of cardFaces){
         let value;
+        
         if(card == "J" || card == "Q" || card == "K"){
             value = "10";
         }else if(card == "A"){
@@ -38,24 +40,29 @@ function createCards(){
         const temp1 ={
             name: card,
             nameSuit: card+"H",
-            value: value
+            value: value,
+            ID: "C" + ID
 
         } 
         const temp2 ={
             name: card,
             nameSuit: card+"S",
-            value: value
+            value: value,
+            ID: "C" + (ID + 1)
         } 
         const temp3 ={
             name: card,
             nameSuit: card+"C",
-            value: value
+            value: value,
+            ID: "C" + (ID + 2)
         } 
         const temp4 ={
             name: card,
             nameSuit: card+"D",
-            value: value
+            value: value,
+            ID: "C" + (ID + 3)
         } 
+        ID += 4;
         deck.push(temp1,temp2,temp3,temp4);
     }
 }
@@ -66,6 +73,7 @@ console.log(deck)
 function createCardDeck(){
     for(let card of deck){
          card.imgsrc = `images/${card.nameSuit}.jpg`;
+         
     }
         
 }
@@ -77,6 +85,7 @@ for(let card of deck){
     let temp = document.createElement("img");
     temp.setAttribute("src",card.imgsrc);
     temp.setAttribute("class","cardImage");
+    temp.setAttribute("id",card.ID);
     card.imgHTML = temp;
 }
 console.log(deck)
@@ -128,6 +137,11 @@ deal = () => {
     cardAnimateImg.addEventListener("animationend", (e) =>{
         playerHand.appendChild(card1.imgHTML);
         playerHand.appendChild(card2.imgHTML);
+        console.log(card1.imgHTML);
+        document.querySelector(`#${card1.imgHTML.id}`).classList.add("cardFlipAnimate");
+        document.querySelector(`#${card2.imgHTML.id}`).classList.add("cardFlipAnimate");
+        // document.querySelector(card2.imgHTML).classList.add("cardFlipAnimate");
+       
     });
    
     dealerHand.appendChild(holeCardImg);
