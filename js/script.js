@@ -8,6 +8,16 @@ var dealButton = document.querySelector("#deal-button");
 var hitButton = document.querySelector("#hit-button");
 var standButton = document.querySelector("#stand-button");
 var cardAnimateImg = document.querySelector(".cardImage2");
+var cardAnimateImg3 = document.querySelector(".cardImage3");
+var message = document.querySelector("#messages");
+var betDiv = document.querySelector("#betDiv");
+var moneyDiv = document.querySelector("#moneyDiv");
+var betUp = document.querySelector("#betup-button");
+var betDown = document.querySelector("#betdown-button");
+var bet = "Bet Amount: $";
+var money = "Money: $";
+
+
 var deck = [];
 var playerTotal = 0;
 var dealerTotal = 0;
@@ -15,6 +25,25 @@ var dealerHoleCard;
 var holeCardFlipped = true;
 var playerCurrentCards = [];
 var dealerCurrentCards = []
+var betAmount = 0;
+var playerMoney = 100;
+
+betUp.addEventListener("click", (e) =>{
+    if(playerMoney >= 10){
+        betAmount += 10;
+        playerMoney -= 10;
+        betDiv.innerHTML = `${bet}${betAmount}`;
+        moneyDiv.innerHTML = `${money}${playerMoney}`;
+    }
+});
+betDown.addEventListener("click", (e) =>{
+    if(betAmount >= 10){
+        betAmount -= 10;
+        playerMoney += 10;
+        betDiv.innerHTML = `${bet}${betAmount}`;
+        moneyDiv.innerHTML = `${money}${playerMoney}`;
+    }
+});
 
 document.querySelector("body").addEventListener('click', (e) => {
     console.log(e);
@@ -102,10 +131,7 @@ function shuffleDeck(deck) {
 
 var gameDeck = [...deck];
 shuffleDeck(gameDeck)
-// var card2C = document.createElement("img");
-// card2C.setAttribute("src","images/2C.jpg");
-// card2C.setAttribute("class","cardImage");
-// cardImages.push(card2C);
+
 checkAces = (person) => {
 
     if(getTotal(person)>21){
@@ -143,6 +169,7 @@ deal = () => {
         // document.querySelector(card2.imgHTML).classList.add("cardFlipAnimate");
        
     });
+    // cardAnimateImg.classList.remove("playerCardAnimate");
    
     dealerHand.appendChild(holeCardImg);
     dealerHand.appendChild(card4.imgHTML);
@@ -166,7 +193,16 @@ dealCard = () => {
 hit = () => {
     let card = dealCard();
     playerCurrentCards.push(card);
-    playerHand.appendChild(card.imgHTML);
+    // cardAnimateImg.classList.remove("playerCardAnimate");
+    cardAnimateImg3.classList.add("playerCardAnimateSingle");
+    cardAnimateImg3.addEventListener("animationend", (e) =>{
+        playerHand.appendChild(card.imgHTML);
+        document.querySelector(`#${card.imgHTML.id}`).classList.add("cardFlipAnimate");
+    });
+    
+
+
+    
     
     
     checkAces(playerCurrentCards)
@@ -175,8 +211,10 @@ hit = () => {
     playerPoints.innerHTML = getTotal(playerCurrentCards);
     if(getTotal(playerCurrentCards) > 21){
         setTimeout(function() {
-            document.querySelector("#messages").innerHTML = "You busted dealer wins!";
-            alert("You busted! Dealer WINS!")
+            message.innerHTML = "You busted dealer wins!";
+            betAmount = 0;
+            moneyDiv.innerHTML = `${money}${playerMoney}`;
+            
         },10);
         
     }
@@ -193,15 +231,20 @@ stand = () => {
 checkWin = () => {
     if(getTotal(playerCurrentCards) > getTotal(dealerCurrentCards)){
         setTimeout(function() {
-            alert("You win")
+            message.innerHTML = "You win!";
+            playerMoney += betAmount * 2;
+            moneyDiv.innerHTML = `${money}${playerMoney}`;
         },10);
     }else if(getTotal(dealerCurrentCards) > getTotal(playerCurrentCards)){
         setTimeout(function() {
-            alert("Dealer WINS!")
+            message.innerHTML = "Dealer wins!";
+            betAmount = 0;
         },10);
     }else{
         setTimeout(function() {
-            alert("Draw")
+            message.innerHTML = "Draw!";
+            playerMoney += betAmount;
+            moneyDiv.innerHTML = `${money}${playerMoney}`;
         },10);
     }
 }
@@ -223,7 +266,9 @@ dealerPlay = () => {
 
     if(getTotal(dealerCurrentCards) > 21){
         setTimeout(function() {
-            alert("dealer busted! you WIN!")
+            message.innerHTML = "Dealer busted You win!";
+            playerMoney += betAmount * 2;
+            moneyDiv.innerHTML = `${money}${playerMoney}`;
         },10);
     }
     if(getTotal(dealerCurrentCards) <= 16){
@@ -235,16 +280,6 @@ dealerPlay = () => {
 dealButton.addEventListener('click',deal);
 hitButton.addEventListener('click',hit);
 standButton.addEventListener('click',stand);
-
-
-
-
-// var card10C = document.createElement("img");
-// card10C.setAttribute("src","images/10C.jpg");
-// card10C.setAttribute("class","cardImage");
-// cardImages.push(card10C);
-
-// dealerHand.appendChild(cardImages[1]);
 
 
 

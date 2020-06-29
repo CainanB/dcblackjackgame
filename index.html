@@ -15,6 +15,7 @@
         <div class="col-2">
             <img class="cardImage  tableDeck position-absolute" src="images/Red_back.jpg" alt="">
             <img class="cardImage cardImage2  tableDeck position-absolute" src="images/Red_back.jpg" alt="">
+            <img class="cardImage cardImage3  tableDeck position-absolute" src="images/Red_back.jpg" alt="">
         </div>
         <div class="col-6 gameArea position-absolute">
             <div id="messages"></div>
@@ -34,14 +35,20 @@
             <div id="player-hand" class="hand">
             
             </div>
-            
+            <div id="betMoney d-flex">
+                <div id="moneyDiv">Money: $100</div>
+                <div id="betDiv">Bet: $0</div>
+            </div>
+
             <div class="buttons mt-5">
             
-            <button id="deal-button">Deal</button>
+            <button id="deal-button" class="myButton">Deal</button>
             
-            <button id="hit-button">Hit</button>
+            <button id="hit-button" class="myButton">Hit</button>
             
-            <button id="stand-button">Stand</button>
+            <button id="stand-button" class="myButton">Stand</button>
+            <button id="betup-button" class="myButton">Bet +$10</button>
+            <button id="betdown-button" class="myButton">Bet -$10</button>
             
             </div>
 
