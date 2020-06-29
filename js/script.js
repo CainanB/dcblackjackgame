@@ -16,7 +16,7 @@ var betUp = document.querySelector("#betup-button");
 var betDown = document.querySelector("#betdown-button");
 var bet = "Bet Amount: $";
 var money = "Money: $";
-
+// GLOBAL VARIABLES
 
 var deck = [];
 var playerTotal = 0;
@@ -27,6 +27,12 @@ var playerCurrentCards = [];
 var dealerCurrentCards = []
 var betAmount = 0;
 var playerMoney = 100;
+var holeCardImg = document.createElement("img");
+holeCardImg.setAttribute("src","images/Red_back.jpg");
+holeCardImg.setAttribute("class","cardImage");
+
+
+// EVENT LISTENERS
 
 betUp.addEventListener("click", (e) =>{
     if(playerMoney >= 10){
@@ -49,9 +55,7 @@ document.querySelector("body").addEventListener('click', (e) => {
     console.log(e);
 });
 
-var holeCardImg = document.createElement("img");
-holeCardImg.setAttribute("src","images/Red_back.jpg");
-holeCardImg.setAttribute("class","cardImage");
+
 
 
 function createCards(){
@@ -102,6 +106,11 @@ console.log(deck)
 function createCardDeck(){
     for(let card of deck){
          card.imgsrc = `images/${card.nameSuit}.jpg`;
+         let temp = document.createElement("img");
+         temp.setAttribute("src",card.imgsrc);
+         temp.setAttribute("class","cardImage");
+         temp.setAttribute("id",card.ID);
+         card.imgHTML = temp;
          
     }
         
@@ -111,11 +120,7 @@ createCardDeck()
 console.log(deck);
 
 for(let card of deck){
-    let temp = document.createElement("img");
-    temp.setAttribute("src",card.imgsrc);
-    temp.setAttribute("class","cardImage");
-    temp.setAttribute("id",card.ID);
-    card.imgHTML = temp;
+   
 }
 console.log(deck)
 
@@ -277,9 +282,12 @@ dealerPlay = () => {
 
 }
 
+
 dealButton.addEventListener('click',deal);
 hitButton.addEventListener('click',hit);
 standButton.addEventListener('click',stand);
+
+
 
 
 
